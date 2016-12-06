@@ -54,9 +54,24 @@ apa.cor.table(analytic_data_no_gender, filename = "Table1.doc", table.number = 1
 psych::pairs.panels(as.data.frame(analytic_data_no_gender))
 
 
-# REGRESSION
+# REGRESSION - total 
 
 block1 = lm(performance~conscientiousness, data = my.data)
 block2 = lm(performance~conscientiousness + agreeableness, data = my.data)
 apa.reg.table(block1, block2, filename = "Table2.doc", table.number = 2)
 
+# REGRESSION - men 
+
+my.data.men <- filter(my.data, gender=="Male")
+
+block3 = lm(performance~conscientiousness, data = my.data.men)
+block4 = lm(performance~conscientiousness + agreeableness, data = my.data.men)
+apa.reg.table(block3, block4, filename = "Table3.doc", table.number = 3)
+
+# REGRESSION - women 
+
+my.data.women <- filter(my.data, gender=="Female")
+
+block5 = lm(performance~conscientiousness, data = my.data.women)
+block6 = lm(performance~conscientiousness + agreeableness, data = my.data.women)
+apa.reg.table(block5, block6, filename = "Table4.doc", table.number = 4)
