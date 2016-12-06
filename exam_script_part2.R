@@ -43,10 +43,20 @@ analytic_data <- cbind(categorical_variables, age, agreeableness, conscientiousn
 write_csv(analytic_data, path = "final_exam_analytic_data.csv")
 
 
-# START
+# CORRELATION TABLE & CHECK
 
 my.data <- read_csv("final_exam_analytic_data.csv")
 
-apa.cor.table(my.data, filename = "Table1.doc", table.number = 1)
+analytic_data_no_gender <- my.data %>% select(-gender)
 
-psych::pairs.panels(as.data.frame(my.data))
+apa.cor.table(analytic_data_no_gender, filename = "Table1.doc", table.number = 1)
+
+psych::pairs.panels(as.data.frame(analytic_data_no_gender))
+
+
+# REGRESSION
+
+block1 = lm(performance~conscientiousness, data = my.data)
+block2 = lm(performance~conscientiousness + agreeableness, data = my.data)
+apa.reg.table(block1, block2, filename = "Table2.doc", table.number = 2)
+
